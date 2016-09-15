@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#http://www.saschaschnepp.net/2013/12/01/python_hashtable/
  
 import sys
  
