@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Source: http://www.saschaschnepp.net/2013/12/01/python_hashtable/
+
 import sys
 
 class Item:
