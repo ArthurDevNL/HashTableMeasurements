@@ -8,7 +8,16 @@
 
 #include <iostream>
 #include <fstream>
-#include <matstring getBaseDir(string buildpath) {
+#include <math.h>
+
+#include "Hashfunctions.cpp"
+#include "cityhash/city.h"
+
+enum collision_resolve_type { chaining, open_addressing };
+
+using namespace std;
+
+string getBaseDir(string buildpath) {
     string base_dir = "reimagined-happiness";
     unsigned long base_dir_i = buildpath.find(base_dir);
     buildpath = buildpath.substr(0, base_dir_i + base_dir.length());
@@ -17,23 +26,20 @@
 
 void getFilePaths(string basedirpath, string filepaths[]) {
     for (int i = 0; i < 3; i++) {
-        filepg line;
-    for (int i = 0; i < (int(pow(2, 16))); i++) {
-        getlin
-#include "Hashfunctions.cpp"
-#include "cityhash/city.h"
-
-enum collision_resolve_type { chaining, open_addressing };
-
-using namespace std;
-
-aths[i] = basedirpath + filepaths[i];
+        filepaths[i] = basedirpath + filepaths[i];
     }
 }
 
 string *getData(string filepath, string dataset[]) {
     ifstream stream(filepath);
-    strin
+    string line;
+    for (int i = 0; i < (int(pow(2, 16))); i++) {
+        getline(stream, line);
+        dataset[i] = line;
+    }
+    stream.close();
+    return dataset;
+}
 
 void fnvExample(const char* str);
 void jenkinsExample(const char* str);
@@ -43,12 +49,6 @@ void fnvExample(const char* str) {
     uint64_t hash = fnvHash::hash(str, strlen(str));
     std::cout << "FNV: " << hash << "\n";
 }
-e(stream, line);
-        dataset[i] = line;
-    }
-    stream.close();
-    return dataset;
-}h.h>
 
 void jenkinsExample(const char* str) {
     uint64_t hash = jenkinsHash::hash(str, strlen(str));
