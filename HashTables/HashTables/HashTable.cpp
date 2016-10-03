@@ -17,12 +17,6 @@ HashTable::HashTable(int _type, int _datasize, double _load_factor) {
     hashtable_size = (int)(datasize / load_factor);
 }
 
-
-
-
-
-
-
 OpenAddressingHashTable::OpenAddressingHashTable(int _type, int _datasize, double _load_factor) : HashTable(_type, _datasize, _load_factor) {
     hashtable = new string[hashtable_size];
 }
@@ -40,11 +34,23 @@ int OpenAddressingHashTable::insert(string value, uint64_t hash) {
 
 ChainingHashTable::ChainingHashTable(int _type, int _datasize, double _load_factor) : HashTable(_type, _datasize, _load_factor) {
     hashtable = new Node[hashtable_size];
-    //for (int i = 0; i < hashtable_size; i++) {
-    //    hashtable[i] = nullptr;
-    //}
-    
-    for (int i = 0; i < 256; i++) {
-        cout << (&hashtable[i] == NULL) << endl;
+}
+int ChainingHashTable::insert(string value, uint64_t hash) {
+    Node n = Node();
+    n.value = value;
+    int i = (int)(hash % hashtable_size);
+    int list_size = 0;
+    if (hashtable[i].value == "") {
+        hashtable[i] = n;
     }
+    else {
+        Node current_node = hashtable[i];
+        list_size++;
+        while (current_node.next != NULL) {
+            list_size++;
+            current_node = *current_node.next;
+        }
+        current_node.next = &n;
+    }
+    return list_size;
 }

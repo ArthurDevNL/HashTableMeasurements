@@ -42,7 +42,7 @@ public:
 };
 
 
-class Node {
+struct Node {
 public:
     std::string value;
     Node* next;
