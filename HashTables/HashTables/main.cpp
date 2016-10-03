@@ -13,6 +13,7 @@
 #include "Hashfunctions.hpp"
 #include "Hashfunctions.cpp"
 #include "TestCases.hpp"
+#include "DataContainer.hpp"
 
 using namespace std;
 
