@@ -54,7 +54,7 @@ public:
 class city_hash: HashFunction {
 public:
     static uint64_t hash(const char* str, size_t len) {
-        return CityHash64(str, len);
+        return CityHash64(str, (uint32)len);
     }
 };
 

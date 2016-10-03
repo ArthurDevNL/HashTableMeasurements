@@ -62,7 +62,6 @@
 #ifndef CITY_HASH_H_
 #define CITY_HASH_H_
 
-#include <stdlib.h>  // for size_t.
 #include <stdint.h>
 #include <utility>
 
@@ -75,26 +74,26 @@ inline uint64 Uint128Low64(const uint128& x) { return x.first; }
 inline uint64 Uint128High64(const uint128& x) { return x.second; }
 
 // Hash function for a byte array.
-uint64 CityHash64(const char *buf, size_t len);
+uint64 CityHash64(const char *buf, uint32 len);
 
 // Hash function for a byte array.  For convenience, a 64-bit seed is also
 // hashed into the result.
-uint64 CityHash64WithSeed(const char *buf, size_t len, uint64 seed);
+uint64 CityHash64WithSeed(const char *buf, uint32 len, uint64 seed);
 
 // Hash function for a byte array.  For convenience, two seeds are also
 // hashed into the result.
-uint64 CityHash64WithSeeds(const char *buf, size_t len,
+uint64 CityHash64WithSeeds(const char *buf, uint32 len,
                            uint64 seed0, uint64 seed1);
 
 // Hash function for a byte array.
-uint128 CityHash128(const char *s, size_t len);
+uint128 CityHash128(const char *s, uint32 len);
 
 // Hash function for a byte array.  For convenience, a 128-bit seed is also
 // hashed into the result.
-uint128 CityHash128WithSeed(const char *s, size_t len, uint128 seed);
+uint128 CityHash128WithSeed(const char *s, uint32 len, uint128 seed);
 
 // Hash function for a byte array.  Most useful in 32-bit binaries.
-uint32 CityHash32(const char *buf, size_t len);
+uint32 CityHash32(const char *buf, uint32 len);
 
 // Hash 128 input bits down to 64 bits of output.
 // This is intended to be a reasonably good hash function.
