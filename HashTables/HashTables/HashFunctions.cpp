@@ -13,7 +13,7 @@
 #include "cityhash/city.h"
 
 class fnv_hash: HashFunction {
-public: 
+public:
     static uint64_t hash(const char* str, size_t len) {
         // http://isthe.com/chongo/tech/comp/fnv/#FNV-1a, kopje Parameters of the FNV-1/FNV-1a hash
         const uint64_t FNV_PRIME = 1099511628211u;

@@ -12,6 +12,7 @@
 
 #include "Hashfunctions.hpp"
 #include "Hashfunctions.cpp"
+#include "HashTable.hpp"
 #include "TestCases.hpp"
 #include "DataContainer.hpp"
 
@@ -47,14 +48,17 @@ int main(int argc, const char * argv[]) {
     
     DataContainer container = DataContainer(*argv);
     
-    for (int data_type = DataContainer::five; data_type < DataContainer::variable; data_type++) {
+    for (int data_type = DataContainer::five; data_type <= DataContainer::variable; data_type++) {
         for (int size_nr = 0; size_nr < 3; size_nr++) {
             int size = (int)pow(2, 8 + 4 * size_nr); // either 2^8, 2^12 or 2^16
             string *data = container.getData(data_type, size);
-            //for (int table_type = HashTable::chaining; table_type != HashTable::open_addressing; table_type++) {
-                //HashTable table = HashTable(table_type, data);
-                //for (int load_factor)
-            //}
+            for (int table_type = HashTable::chaining; table_type <= HashTable::open_addressing; table_type++) {
+                double max_loadfactor = table_type == HashTable::chaining ? 1.5 : 1.0;
+                for (double load_factor = 0.5; load_factor <= max_loadfactor; load_factor+=0.5) {
+                    //HashTable table = HashTable(table_type, data, size, load_factor, fnv_hash().hash);
+                    ChainingHashTable table = ChainingHashTable(table_type, size, load_factor);
+                }
+            }
         }
     }
     

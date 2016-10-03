@@ -12,8 +12,6 @@
 #include <iostream>
 #include <math.h>
 
-#endif /* DataContainer_hpp */
-
 class DataContainer {
     
 public:
@@ -31,3 +29,5 @@ private:
     std::string *alldata = new std::string[3 * (int)pow(2, 16)];
     
 };
+
+#endif /* DataContainer_hpp */

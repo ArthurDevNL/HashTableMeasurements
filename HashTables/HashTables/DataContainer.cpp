@@ -15,8 +15,7 @@ DataContainer::DataContainer(string buildpath) {
     string basedirpath = getBaseDir(buildpath);
     string filepaths[] = {"/datasets/length5.txt", "/datasets/length45.txt", "/datasets/lengthvariable.txt"};
     getFilePaths(basedirpath, filepaths);
-    
-    for (int type = five; type != variable; type++) {
+    for (int type = five; type <= variable; type++) {
         readData(type, filepaths[type]);
     }
 }
@@ -50,8 +49,9 @@ void DataContainer::readData(int type, string filepath) {
 string *DataContainer::getData(int type, int size) {
     string *arr = new string[size];
     int min = type * (int)pow(2, 16);
-    for (int i = min; i < min + size; i++) {
-        arr[i] = alldata[i];
+    int max = min + size;
+    for (int i = min; i < max; i++) {
+        arr[i - min] = alldata[i];
     }
     return arr;
 }

@@ -10,22 +10,49 @@
 #define HashTable_hpp
 
 #include <iostream>
+#include "HashFunctions.hpp"
 
 class HashTable {
-    
 public:
-    
     enum hashtable_type { chaining, open_addressing };
     
-    HashTable(int type, std::string *data);
-    //std::string getBaseDir(std::string buildpath);
-    //void getFilePaths(std::string basedirpath, std::string filepaths[]);
-    //void readData(int type, std::string filepath);
+    HashTable(int _type, int _datasize, double _load_factor);
     
-//private:
+    hashtable_type type;
+    int datasize;
+    double load_factor;
+    uint64_t hash(const char* str);
     
-    //std::string *data;
+    std::string* hashtable;
+    int hashtable_size;
     
+    int insert(std::string value, uint64_t hash);
+    
+private:
+    uint64_t (*hash_func)(const char* str, size_t len);
 };
+
+
+
+class OpenAddressingHashTable: HashTable {
+public:
+    std::string* hashtable;
+    int insert(std::string value, uint64_t hash);
+    OpenAddressingHashTable(int _type, int _datasize, double _load_factor);
+};
+
+
+class Node {
+public:
+    std::string value;
+    Node* next;
+};
+class ChainingHashTable: HashTable {
+public:
+    Node* hashtable;
+    int insert(std::string value, uint64_t hash);
+    ChainingHashTable(int _type, int _datasize, double _load_factor);
+};
+
 
 #endif /* HashTable_hpp */
