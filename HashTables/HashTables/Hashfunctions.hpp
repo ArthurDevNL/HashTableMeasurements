@@ -12,3 +12,8 @@
 #include <stdio.h>
 
 #endif /* Hashfunctions_hpp */
+
+class hashfunction {
+public:
+    static uint64_t hash(const char* str, size_t len);
+};

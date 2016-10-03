@@ -10,6 +10,9 @@
 #include <fstream>
 #include <math.h>
 
+#include "Hashfunctions.cpp"
+#include "cityhash/city.h"
+
 enum collision_resolve_type { chaining, open_addressing };
 
 using namespace std;
@@ -38,6 +41,25 @@ string *getData(string filepath, string dataset[]) {
     return dataset;
 }
 
+void fnvExample(const char* str);
+void jenkinsExample(const char* str);
+void cityHashExample(const char* str);
+
+void fnvExample(const char* str) {
+    uint64_t hash = fnvHash::hash(str, strlen(str));
+    std::cout << "FNV: " << hash << "\n";
+}
+
+void jenkinsExample(const char* str) {
+    uint64_t hash = jenkinsHash::hash(str, strlen(str));
+    std::cout << "Jenkins: " << hash << "\n";
+}
+
+void cityHashExample(const char* str) {
+    uint64_t hash = cityHash::hash(str, strlen(str));
+    std::cout << "Cityhash: " << hash << "\n";
+}
+
 int main(int argc, const char * argv[]) {
     
     string basedirpath = getBaseDir(*argv);
@@ -62,9 +84,14 @@ int main(int argc, const char * argv[]) {
         
     }
     
+    fnvExample("abc");
+    jenkinsExample("abc");
+    cityHashExample("abc");
     
+    return 0;
     
-    
+}
+
     
     
     /*
@@ -74,6 +101,4 @@ int main(int argc, const char * argv[]) {
                 verschillende loadfactors
                     verschillende hashfuncties
     */
-     
-    return 0;
-}
+
