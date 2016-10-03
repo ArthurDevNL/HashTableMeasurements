@@ -9,5 +9,11 @@
 #ifndef HashFunctions_h
 #define HashFunctions_h
 
+#include <iostream>
+
+class HashFunction {
+public:
+    static uint64_t hash(const char* str, size_t len);
+};
 
 #endif /* HashFunctions_h */

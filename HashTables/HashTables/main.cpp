@@ -10,8 +10,9 @@
 #include <fstream>
 #include <math.h>
 
+#include "Hashfunctions.hpp"
 #include "Hashfunctions.cpp"
-#include "cityhash/city.h"
+#include "TestCases.hpp"
 
 enum collision_resolve_type { chaining, open_addressing };
 
@@ -41,28 +42,33 @@ string *getData(string filepath, string dataset[]) {
     return dataset;
 }
 
-void fnvExample(const char* str);
-void jenkinsExample(const char* str);
-void cityHashExample(const char* str);
+void fnv_example(const char* str);
+void jenkins_example(const char* str);
+void city_hash_example(const char* str);
 
-void fnvExample(const char* str) {
-    uint64_t hash = fnvHash::hash(str, strlen(str));
+void fnv_example(const char* str) {
+    uint64_t hash = fnv_hash::hash(str, strlen(str));
     std::cout << "FNV: " << hash << "\n";
 }
 
-void jenkinsExample(const char* str) {
-    uint64_t hash = jenkinsHash::hash(str, strlen(str));
+void jenkins_example(const char* str) {
+    uint64_t hash = jenkins_hash::hash(str, strlen(str));
     std::cout << "Jenkins: " << hash << "\n";
 }
 
-void cityHashExample(const char* str) {
-    uint64_t hash = cityHash::hash(str, strlen(str));
+void city_hash_example(const char* str) {
+    uint64_t hash = city_hash::hash(str, strlen(str));
     std::cout << "Cityhash: " << hash << "\n";
+}
+
+void murmurExample(const char* str) {
+    uint64_t hash = murmur_hash::hash(str, strlen(str));
+    std::cout << "MurMurHash: " << hash << "\n";
 }
 
 int main(int argc, const char * argv[]) {
     
-    string basedirpath = getBaseDir(*argv);
+    /*string basedirpath = getBaseDir(*argv);
     string filepaths[] = {"/datasets/length5.txt", "/datasets/length45.txt", "/datasets/lengthvariable.txt"};
     getFilePaths(basedirpath, filepaths);
     
@@ -82,11 +88,12 @@ int main(int argc, const char * argv[]) {
             
         }
         
-    }
+    }*/
     
-    fnvExample("abc");
-    jenkinsExample("abc");
-    cityHashExample("abc");
+    fnv_example("abc");
+    jenkins_example("abc");
+    city_hash_example("abc");
+    murmurExample("abc");
     
     return 0;
     
