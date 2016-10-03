@@ -13,7 +13,7 @@
 
 class HashFunction {
 public:
-    static uint64_t hash(const char* str, size_t len);
+    uint64_t hash(const char* str, size_t len);
 };
 
 #endif /* HashFunctions_h */

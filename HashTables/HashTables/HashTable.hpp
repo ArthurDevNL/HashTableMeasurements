@@ -11,8 +11,6 @@
 
 #include <iostream>
 
-#endif /* HashTable_hpp */
-
 class HashTable {
     
 public:
@@ -29,3 +27,5 @@ public:
     //std::string *data;
     
 };
+
+#endif /* HashTable_hpp */
