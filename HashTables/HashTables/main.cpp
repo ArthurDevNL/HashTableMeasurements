@@ -14,37 +14,11 @@
 #include "Hashfunctions.cpp"
 #include "TestCases.hpp"
 
-enum collision_resolve_type { chaining, open_addressing };
-
 using namespace std;
 
-string getBaseDir(string buildpath) {
-    string base_dir = "reimagined-happiness";
-    unsigned long base_dir_i = buildpath.find(base_dir);
-    buildpath = buildpath.substr(0, base_dir_i + base_dir.length());
-    return buildpath;
-}
-
-void getFilePaths(string basedirpath, string filepaths[]) {
-    for (int i = 0; i < 3; i++) {
-        filepaths[i] = basedirpath + filepaths[i];
-    }
-}
-
-string *getData(string filepath, string dataset[]) {
-    ifstream stream(filepath);
-    string line;
-    for (int i = 0; i < (int(pow(2, 16))); i++) {
-        getline(stream, line);
-        dataset[i] = line;
-    }
-    stream.close();
-    return dataset;
-}
-
-void fnv_example(const char* str);
-void jenkins_example(const char* str);
-void city_hash_example(const char* str);
+void fnvExample(const char* str);
+void jenkinsExample(const char* str);
+void cityHashExample(const char* str);
 
 void fnv_example(const char* str) {
     uint64_t hash = fnv_hash::hash(str, strlen(str));
@@ -68,27 +42,18 @@ void murmurExample(const char* str) {
 
 int main(int argc, const char * argv[]) {
     
-    /*string basedirpath = getBaseDir(*argv);
-    string filepaths[] = {"/datasets/length5.txt", "/datasets/length45.txt", "/datasets/lengthvariable.txt"};
-    getFilePaths(basedirpath, filepaths);
+    DataContainer container = DataContainer(*argv);
     
-    for (int filenr = 0; filenr < 3; filenr++) {
-        string *dataset = new string[(int)pow(2, 16)];
-        getData(filepaths[filenr], dataset);
-        
-        int sizes[] = {(int)pow(2, 8), (int)pow(2, 12), (int)pow(2, 16)};
-        for (int sizenr = 0; sizenr < 3; sizenr++) {
-            int size = sizes[sizenr];
-            
-            for (int table_type = chaining; table_type != open_addressing; table_type++) {
-                
-            }
-            
-            int *hashtable = new int[size];
-            
+    for (int data_type = DataContainer::five; data_type < DataContainer::variable; data_type++) {
+        for (int size_nr = 0; size_nr < 3; size_nr++) {
+            int size = (int)pow(2, 8 + 4 * size_nr); // either 2^8, 2^12 or 2^16
+            string *data = container.getData(data_type, size);
+            //for (int table_type = HashTable::chaining; table_type != HashTable::open_addressing; table_type++) {
+                //HashTable table = HashTable(table_type, data);
+                //for (int load_factor)
+            //}
         }
-        
-    }*/
+    }
     
     fnv_example("abc");
     jenkins_example("abc");
