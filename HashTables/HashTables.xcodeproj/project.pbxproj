@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		36A83F341DA25C1D00342A4B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36A83F331DA25C1D00342A4B /* main.cpp */; };
 		36A83F3C1DA25C3400342A4B /* Hashfunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36A83F3A1DA25C3400342A4B /* Hashfunctions.cpp */; };
+		36A83F5E1DA26E9900342A4B /* city.cc in Sources */ = {isa = PBXBuildFile; fileRef = 36A83F5C1DA26E9900342A4B /* city.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		36A83F331DA25C1D00342A4B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		36A83F3A1DA25C3400342A4B /* Hashfunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hashfunctions.cpp; sourceTree = "<group>"; };
 		36A83F3B1DA25C3400342A4B /* Hashfunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hashfunctions.hpp; sourceTree = "<group>"; };
+		36A83F5C1DA26E9900342A4B /* city.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = city.cc; sourceTree = "<group>"; };
+		36A83F5D1DA26E9900342A4B /* city.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = city.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +66,18 @@
 				36A83F331DA25C1D00342A4B /* main.cpp */,
 				36A83F3A1DA25C3400342A4B /* Hashfunctions.cpp */,
 				36A83F3B1DA25C3400342A4B /* Hashfunctions.hpp */,
+				36A83F5B1DA26E9900342A4B /* cityhash */,
 			);
 			path = HashTables;
+			sourceTree = "<group>";
+		};
+		36A83F5B1DA26E9900342A4B /* cityhash */ = {
+			isa = PBXGroup;
+			children = (
+				36A83F5C1DA26E9900342A4B /* city.cc */,
+				36A83F5D1DA26E9900342A4B /* city.h */,
+			);
+			path = cityhash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A83F5E1DA26E9900342A4B /* city.cc in Sources */,
 				36A83F341DA25C1D00342A4B /* main.cpp in Sources */,
 				36A83F3C1DA25C3400342A4B /* Hashfunctions.cpp in Sources */,
 			);
