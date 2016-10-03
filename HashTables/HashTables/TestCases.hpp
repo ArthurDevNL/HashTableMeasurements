@@ -15,8 +15,10 @@
 
 class TestCase {
 public:
-    TestCase(HashFunction* hash_class, std::string* data, const size_t data_size, HashTable* table);
+    TestCase(std::string* data, const size_t data_size, HashTable* table, uint64_t (*hash_function)(const char* str, size_t len));
+    
     void perform_test();
+    uint64_t test_hash(std::string* str);
     
     // Test results
     unsigned int insertion_steps;
@@ -27,7 +29,7 @@ public:
 private:
     std::string* data;
     size_t data_length;
-    HashFunction* hash_class;
+    uint64_t (*hash_function)(const char* str, size_t len);
     HashTable* table;
     
     // Benchmarking functions

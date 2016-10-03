@@ -13,8 +13,8 @@
 
 using namespace std;
 
-TestCase::TestCase(HashFunction* hash_class, std::string* data, const size_t data_size, HashTable* table) {
-    this->hash_class = hash_class;
+TestCase::TestCase(string* data, const size_t data_size, HashTable* table, uint64_t (*hash_function)(const char* str, size_t len)) {
+    this->hash_function = hash_function;
     this->data = data;
     this->data_length = data_size;
     this->table = table;
@@ -22,6 +22,12 @@ TestCase::TestCase(HashFunction* hash_class, std::string* data, const size_t dat
 
 void TestCase::perform_test() {
     fill_table();
+}
+
+uint64_t TestCase::test_hash(string* str) {
+    const char* char_string = str->c_str();
+    size_t str_len = strlen(char_string);
+    return hash_function(char_string, str_len);
 }
 
 void TestCase::fill_table() {
@@ -32,7 +38,7 @@ void TestCase::fill_table() {
     for (int i = 0; i < data_length; i++) {
         const char* char_string = data[i].c_str();
         size_t str_len = strlen(char_string);
-        //uint64_t hash = this->hash_class->hash(char_string, str_len);
+        uint64_t hash = hash_function(char_string, str_len);
         // insertion_steps += table.insert(data[i], hash);
     }
     
@@ -51,7 +57,7 @@ void TestCase::lookup_table() {
     for (int i = 0; i < data_length; i++) {
         const char* char_string = data[i].c_str();
         size_t str_len = strlen(char_string);
-        //uint64_t hash = this->hash_class->hash(char_string, str_len);
+        uint64_t hash = hash_function(char_string, str_len);
         // lookup_steps += table.lookup(data[i], hash);
     }
     

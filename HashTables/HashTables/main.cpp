@@ -43,6 +43,8 @@ void murmurExample(const char* str) {
 
 int main(int argc, const char * argv[]) {
     
+    //TestCase testcase = TestCase(nullptr, 0, nullptr, murmur_hash::hash);
+    
     DataContainer container = DataContainer(*argv);
     
     for (int data_type = DataContainer::five; data_type < DataContainer::variable; data_type++) {
