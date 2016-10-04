@@ -28,9 +28,6 @@ public:
     
     virtual int insert(std::string value, uint64_t hash) = 0;
     virtual int lookup(std::string value, uint64_t hash) = 0;
-    
-private:
-    uint64_t (*hash_func)(const char* str, size_t len);
 };
 
 

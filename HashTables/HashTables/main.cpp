@@ -35,10 +35,10 @@ int main(int argc, const char * argv[]) {
                     OpenAddressingHashTable oa_table = OpenAddressingHashTable(table_type, size, load_factor);
                     
                     hash_function functions[4] = { murmur_hash::hash, fnv_hash::hash, city_hash::hash, jenkins_hash::hash };
-                    for (int i = 0; i < 4; i++) {
-                        string *data = container.getData(data_type, size);
-                        TestCase(data, size, &c_table, functions[i]).perform_test();
-                        TestCase(data, size, &oa_table, functions[i]).perform_test();
+                    for (int function_nr = 0; function_nr < 4; function_nr++) {
+                        string *data = container.get_data(data_type, size);
+                        TestCase(data, size, &c_table, functions[function_nr]).perform_test();
+                        TestCase(data, size, &oa_table, functions[function_nr]).perform_test();
                     }
                     
                 }

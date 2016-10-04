@@ -18,15 +18,15 @@ public:
     
     enum dataset_type { five, fourtyfive, variable };
     
-    DataContainer(std::string buildpath);
-    std::string getBaseDir(std::string buildpath);
-    void getFilePaths(std::string basedirpath, std::string filepaths[]);
-    void readData(int type, std::string filepath);
-    std::string *getData(int type, int size);
+    DataContainer(std::string build_path);
+    std::string get_base_dir(std::string build_path);
+    void get_file_paths(std::string base_dir_path, std::string file_paths[]);
+    void read_data(int type, std::string file_path);
+    std::string *get_data(int type, int size);
 
 private:
     
-    std::string *alldata = new std::string[3 * (int)pow(2, 16)];
+    std::string *all_data = new std::string[3 * (int)pow(2, 16)];
     
 };
 

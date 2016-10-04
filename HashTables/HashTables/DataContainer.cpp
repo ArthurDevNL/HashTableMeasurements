@@ -11,47 +11,45 @@
 
 using namespace std;
 
-DataContainer::DataContainer(string buildpath) {
-    string basedirpath = getBaseDir(buildpath);
-    string filepaths[] = {"/datasets/length5.txt", "/datasets/length45.txt", "/datasets/lengthvariable.txt"};
-    getFilePaths(basedirpath, filepaths);
+DataContainer::DataContainer(string build_path) {
+    string base_dir_path = get_base_dir(build_path);
+    string file_path[] = {"/datasets/length5.txt", "/datasets/length45.txt", "/datasets/lengthvariable.txt"};
+    get_file_paths(base_dir_path, file_path);
     for (int type = five; type <= variable; type++) {
-        readData(type, filepaths[type]);
+        read_data(type, file_path[type]);
     }
 }
 
-string DataContainer::getBaseDir(string buildpath) {
+string DataContainer::get_base_dir(string build_path) {
     string base_dir = "reimagined-happiness";
-    unsigned long base_dir_i = buildpath.find(base_dir);
-    buildpath = buildpath.substr(0, base_dir_i + base_dir.length());
-    return buildpath;
+    unsigned long base_dir_i = build_path.find(base_dir);
+    build_path = build_path.substr(0, base_dir_i + base_dir.length());
+    return build_path;
 }
 
-void DataContainer::getFilePaths(string basedirpath, string filepaths[]) {
+void DataContainer::get_file_paths(string base_dir_path, string file_paths[]) {
     for (int i = 0; i < 3; i++) {
-        filepaths[i] = basedirpath + filepaths[i];
+        file_paths[i] = base_dir_path + file_paths[i];
     }
 }
 
-void DataContainer::readData(int type, string filepath) {
-    ifstream stream(filepath);
+void DataContainer::read_data(int type, string file_path) {
+    ifstream stream(file_path);
     string line;
-    
     int p = (int)pow(2, 16);
-    
     for (int i = type * p; i < (type + 1) * p; i++) {
         getline(stream, line);
-        alldata[i] = line;
+        all_data[i] = line;
     }
     stream.close();
 }
 
-string *DataContainer::getData(int type, int size) {
+string *DataContainer::get_data(int type, int size) {
     string *arr = new string[size];
     int min = type * (int)pow(2, 16);
     int max = min + size;
     for (int i = min; i < max; i++) {
-        arr[i - min] = alldata[i];
+        arr[i - min] = all_data[i];
     }
     return arr;
 }
