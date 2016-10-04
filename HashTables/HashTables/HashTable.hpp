@@ -46,6 +46,8 @@ public:
 
 struct Node {
 public:
+    Node();
+    Node(std::string value);
     std::string value;
     Node* next;
 };
