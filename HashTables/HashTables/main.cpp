@@ -43,8 +43,12 @@ void murmurExample(const char* str) {
 }
 
 int main(int argc, const char * argv[]) {
+    ChainingHashTable table = ChainingHashTable(0, 64, 0.5);
     
-    //TestCase testcase = TestCase(nullptr, 0, nullptr, murmur_hash::hash);
+    string* testStrings = new string[5] { "abc", "def", "ghi", "jkl", "mno" };
+    
+    TestCase testcase = TestCase(testStrings, 5, &table, murmur_hash::hash);
+    testcase.perform_test();
     
     DataContainer container = DataContainer(*argv);
     
@@ -62,10 +66,11 @@ int main(int argc, const char * argv[]) {
         }
     }
     
-    fnv_example("abc");
+    
+    /*fnv_example("abc");
     jenkins_example("abc");
     city_hash_example("abc");
-    murmurExample("abc");
+    murmurExample("abc");*/
     
     return 0;
     

@@ -26,7 +26,8 @@ public:
     std::string* hashtable;
     int hashtable_size;
     
-    int insert(std::string value, uint64_t hash);
+    virtual int insert(std::string value, uint64_t hash) = 0;
+    virtual int lookup(std::string value, uint64_t hash) = 0;
     
 private:
     uint64_t (*hash_func)(const char* str, size_t len);
@@ -34,10 +35,11 @@ private:
 
 
 
-class OpenAddressingHashTable: HashTable {
+class OpenAddressingHashTable: public HashTable {
 public:
     std::string* hashtable;
-    int insert(std::string value, uint64_t hash);
+    int insert(std::string value, uint64_t hash) override;
+    int lookup(std::string value, uint64_t hash) override;
     OpenAddressingHashTable(int _type, int _datasize, double _load_factor);
 };
 
@@ -47,10 +49,11 @@ public:
     std::string value;
     Node* next;
 };
-class ChainingHashTable: HashTable {
+class ChainingHashTable: public HashTable {
 public:
     Node* hashtable;
-    int insert(std::string value, uint64_t hash);
+    int insert(std::string value, uint64_t hash) override;
+    int lookup(std::string value, uint64_t hash) override;
     ChainingHashTable(int _type, int _datasize, double _load_factor);
 };
 

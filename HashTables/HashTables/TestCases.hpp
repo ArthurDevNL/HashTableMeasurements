@@ -18,7 +18,7 @@ public:
     TestCase(std::string* data, const size_t data_size, HashTable* table, uint64_t (*hash_function)(const char* str, size_t len));
     
     void perform_test();
-    uint64_t test_hash(std::string* str);
+    uint64_t hash(std::string str);
     
     // Test results
     unsigned int insertion_steps;
