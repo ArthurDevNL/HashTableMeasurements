@@ -67,7 +67,8 @@ int ChainingHashTable::insert(string value, uint64_t hash) {
         return 1;
     }
     else {
-        Node *new_node = (Node*)malloc(sizeof(Node));
+        Node *new_node = (Node*)calloc(1, sizeof(Node));
+        
         new_node->value = value;
         new_node->next = nullptr;
         int loops = 2;
