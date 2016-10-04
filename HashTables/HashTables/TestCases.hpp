@@ -21,11 +21,15 @@ public:
     uint64_t hash(std::string str);
     
     // Test results
-    unsigned int insertion_steps;
+    unsigned int* insertion_steps;
+    unsigned int insertion_sum;
     double insertion_time;
     
-    unsigned int lookup_steps;
+    unsigned int* lookup_steps;
+    unsigned int lookup_sum;
     double lookup_time;
+    
+    unsigned int collisions;
 private:
     std::string* data;
     size_t data_length;

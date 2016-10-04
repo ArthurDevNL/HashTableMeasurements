@@ -28,14 +28,12 @@ int main(int argc, const char * argv[]) {
             for (int table_type = HashTable::chaining; table_type <= HashTable::open_addressing; table_type++) {
                 double max_loadfactor = table_type == HashTable::chaining ? 1.5 : 1.0;
                 for (double load_factor = 0.5; load_factor <= max_loadfactor; load_factor+=0.5) {
-
                     //HashTable table = HashTable(table_type, data, size, load_factor, fnv_hash().hash);
                     ChainingHashTable table = ChainingHashTable(table_type, size, load_factor);
                     
                     string *data = container.getData(data_type, size);
                     TestCase testcase = TestCase(data, size, &table, murmur_hash::hash);
                     testcase.perform_test();
-                    
                 }
             }
         }

@@ -18,19 +18,17 @@ TestCase::TestCase(string* data, const size_t data_size, HashTable* table, uint6
     this->data = data;
     this->data_length = data_size;
     this->table = table;
+    this->insertion_steps = new unsigned int[data_size];
+    this->lookup_steps = new unsigned int[data_size];
 }
 
 void TestCase::perform_test() {
-//    std::string str = "abc";
-//    uint64_t hash = this->hash(str);
-//    int insert_steps = table->insert(str, hash);
-//    int lookup_steps = table->lookup(str, hash);
-//    cout << "Insert steps: " << insert_steps << ", lookup steps: " << lookup_steps << "\n";
     fill_table();
     lookup_table();
+    
     cout << "Test results: \n";
-    cout << "Insertion steps: " << insertion_steps << ", time: " << insertion_time << " s. \n";
-    cout << "Lookup steps: " << lookup_steps << ", time: " << lookup_time << " s. \n";
+    cout << "Insertion steps: " << lookup_sum << ", time: " << insertion_time << " s. \n";
+    cout << "Lookup steps: " << lookup_sum << ", time: " << lookup_time << " s. \n";
 }
 
 uint64_t TestCase::hash(string str) {
@@ -42,13 +40,17 @@ uint64_t TestCase::hash(string str) {
 void TestCase::fill_table() {
     auto start = chrono::high_resolution_clock::now();
     
-    insertion_steps = 0;
+    insertion_sum = 0;
     
     for (int i = 0; i < data_length; i++) {
         const char* char_string = data[i].c_str();
         size_t str_len = strlen(char_string);
         uint64_t hash = hash_function(char_string, str_len);
-        insertion_steps += table->insert(data[i], hash);
+        insertion_steps[i] = table->insert(data[i], hash);
+        insertion_sum += insertion_steps[i];
+        
+        if (insertion_steps[i] > 1)
+            collisions++;
     }
     
     auto end = chrono::high_resolution_clock::now();
@@ -61,13 +63,15 @@ void TestCase::fill_table() {
 void TestCase::lookup_table() {
     auto start = chrono::high_resolution_clock::now();
     
-    lookup_steps = 0;
+    lookup_sum = 0;
     
     for (int i = 0; i < data_length; i++) {
         const char* char_string = data[i].c_str();
         size_t str_len = strlen(char_string);
         uint64_t hash = hash_function(char_string, str_len);
-        lookup_steps += table->lookup(data[i], hash);
+        
+        lookup_steps[i] = table->lookup(data[i], hash);
+        lookup_sum += lookup_steps[i];
     }
     
     auto end = chrono::high_resolution_clock::now();
