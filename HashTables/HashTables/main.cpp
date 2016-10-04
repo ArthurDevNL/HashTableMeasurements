@@ -61,6 +61,12 @@ int main(int argc, const char * argv[]) {
                 for (double load_factor = 0.5; load_factor <= max_loadfactor; load_factor+=0.5) {
                     //HashTable table = HashTable(table_type, data, size, load_factor, fnv_hash().hash);
                     ChainingHashTable table = ChainingHashTable(table_type, size, load_factor);
+                    cout << table.insert("string1", 0) << endl;
+                    cout << table.insert("string2", 0) << endl;
+                    cout << table.insert("string3", 0) << endl;
+                    cout << table.insert("string4", 0) << endl;
+                    cout << table.insert("string5", 0) << endl;
+                    return 0;
                 }
             }
         }
