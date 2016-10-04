@@ -18,30 +18,6 @@
 
 using namespace std;
 
-void fnvExample(const char* str);
-void jenkinsExample(const char* str);
-void cityHashExample(const char* str);
-
-void fnv_example(const char* str) {
-    uint64_t hash = fnv_hash::hash(str, strlen(str));
-    std::cout << "FNV: " << hash << "\n";
-}
-
-void jenkins_example(const char* str) {
-    uint64_t hash = jenkins_hash::hash(str, strlen(str));
-    std::cout << "Jenkins: " << hash << "\n";
-}
-
-void city_hash_example(const char* str) {
-    uint64_t hash = city_hash::hash(str, strlen(str));
-    std::cout << "Cityhash: " << hash << "\n";
-}
-
-void murmurExample(const char* str) {
-    uint64_t hash = murmur_hash::hash(str, strlen(str));
-    std::cout << "MurMurHash: " << hash << "\n";
-}
-
 int main(int argc, const char * argv[]) {
     ChainingHashTable table = ChainingHashTable(0, 64, 0.5);
     
@@ -65,12 +41,6 @@ int main(int argc, const char * argv[]) {
             }
         }
     }
-    
-    
-    /*fnv_example("abc");
-    jenkins_example("abc");
-    city_hash_example("abc");
-    murmurExample("abc");*/
     
     return 0;
     
