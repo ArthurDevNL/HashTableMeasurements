@@ -28,9 +28,9 @@ void TestCase::perform_test() {
 //    cout << "Insert steps: " << insert_steps << ", lookup steps: " << lookup_steps << "\n";
     fill_table();
     lookup_table();
-    cout << "Test results: \n";
-    cout << "Insertion steps: " << insertion_steps << ", time: " << insertion_time << " s. \n";
-    cout << "Lookup steps: " << lookup_steps << ", time: " << lookup_time << " s. \n";
+    cout << "Test results: " << endl;
+    cout << "Insertion steps: " << insertion_steps << ", time: " << insertion_time << " s." << endl;
+    cout << "Lookup steps: " << lookup_steps << ", time: " << lookup_time << " s." << endl;
 }
 
 uint64_t TestCase::hash(string str) {
