@@ -61,15 +61,15 @@ ChainingHashTable::ChainingHashTable(int _type, int _datasize, double _load_fact
 int ChainingHashTable::insert(string value, uint64_t hash) {
     int i = (int)(hash % hashtable_size);
     
-    Node *new_node = (Node*)malloc(sizeof(Node));
-    new_node->value = value;
-    new_node->next = nullptr;
-    
     Node* current_node = &hashtable[i];
     if (current_node->value == "") {
         current_node->value = value;
         return 1;
-    } else {
+    }
+    else {
+        Node *new_node = (Node*)malloc(sizeof(Node));
+        new_node->value = value;
+        new_node->next = nullptr;
         int loops = 2;
         
         while(current_node->next != nullptr) {
