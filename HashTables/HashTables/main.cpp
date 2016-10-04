@@ -19,12 +19,12 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    ChainingHashTable table = ChainingHashTable(0, 64, 0.5);
+//    ChainingHashTable table = ChainingHashTable(0, 64, 0.5);
     
-    string* testStrings = new string[5] { "abc", "def", "ghi", "jkl", "mno" };
-    
-    TestCase testcase = TestCase(testStrings, 5, &table, murmur_hash::hash);
-    testcase.perform_test();
+//    string* testStrings = new string[5] { "abc", "def", "ghi", "jkl", "mno" };
+//    
+//    TestCase testcase = TestCase(testStrings, 5, &table, murmur_hash::hash);
+//    testcase.perform_test();
     
     DataContainer container = DataContainer(*argv);
     

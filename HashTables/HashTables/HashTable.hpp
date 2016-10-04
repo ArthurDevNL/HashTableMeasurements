@@ -51,6 +51,7 @@ public:
     std::string value;
     Node* next;
 };
+
 class ChainingHashTable: public HashTable {
 public:
     Node* hashtable;

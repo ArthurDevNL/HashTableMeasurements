@@ -45,9 +45,11 @@ int OpenAddressingHashTable::lookup(string value, uint64_t hash) {
 
 Node::Node(string _value) {
     value = _value;
+    next = nullptr;
 }
 Node::Node() {
-    
+    value = "";
+    next = nullptr;
 }
 
 
@@ -57,26 +59,29 @@ ChainingHashTable::ChainingHashTable(int _type, int _datasize, double _load_fact
 }
 
 int ChainingHashTable::insert(string value, uint64_t hash) {
-    Node n = Node(value);
     int i = (int)(hash % hashtable_size);
-    int list_size = 1; // Voor het geval er gelijk plaats is, aantal iterations op 0 terwijl je wel insert is raar
-    if (hashtable[i].value == "") {
-        hashtable[i] = n;
-    }
-    else {
-        Node *current_node = &hashtable[i];
-        list_size++;
-        while ((*current_node).next != nullptr) {
-            list_size++;
-            cout << (*current_node).value << ", " << current_node << endl;
-            current_node = (*current_node).next;
-            cout << (*current_node).value << ", " << current_node << endl;
+    
+    Node *new_node = (Node*)malloc(sizeof(Node));
+    new_node->value = value;
+    new_node->next = nullptr;
+    
+    Node* current_node = &hashtable[i];
+    if (current_node->value == "") {
+        current_node->value = value;
+        return 1;
+    } else {
+        int loops = 2;
+        
+        while(current_node->next != nullptr) {
+            loops++;
+            current_node = current_node->next;
         }
-        Node val = *current_node;
-        val.next = &n;
-        *current_node = val;
+        
+        // Found the last element without pointer to next element
+        current_node->next = new_node;
+        
+        return loops;
     }
-    return list_size;
 }
 
 int ChainingHashTable::lookup(string value, uint64_t hash) {
