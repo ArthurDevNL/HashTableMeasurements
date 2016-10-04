@@ -18,6 +18,8 @@
 
 using namespace std;
 
+typedef uint64_t (*hash_function)(const char* str, size_t len);
+
 int main(int argc, const char * argv[]) {
     
     DataContainer container = DataContainer(*argv);
@@ -28,12 +30,17 @@ int main(int argc, const char * argv[]) {
             for (int table_type = HashTable::chaining; table_type <= HashTable::open_addressing; table_type++) {
                 double max_loadfactor = table_type == HashTable::chaining ? 1.5 : 1.0;
                 for (double load_factor = 0.5; load_factor <= max_loadfactor; load_factor+=0.5) {
-                    //HashTable table = HashTable(table_type, data, size, load_factor, fnv_hash().hash);
-                    ChainingHashTable table = ChainingHashTable(table_type, size, load_factor);
+
+                    ChainingHashTable c_table = ChainingHashTable(table_type, size, load_factor);
+                    OpenAddressingHashTable oa_table = OpenAddressingHashTable(table_type, size, load_factor);
                     
-                    string *data = container.getData(data_type, size);
-                    TestCase testcase = TestCase(data, size, &table, murmur_hash::hash);
-                    testcase.perform_test();
+                    hash_function functions[4] = { murmur_hash::hash, fnv_hash::hash, city_hash::hash, jenkins_hash::hash };
+                    for (int i = 0; i < 4; i++) {
+                        string *data = container.getData(data_type, size);
+                        TestCase(data, size, &c_table, functions[i]).perform_test();
+                        TestCase(data, size, &oa_table, functions[i]).perform_test();
+                    }
+                    
                 }
             }
         }

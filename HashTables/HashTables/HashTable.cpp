@@ -64,14 +64,14 @@ int ChainingHashTable::insert(string value, uint64_t hash) {
     Node* current_node = &hashtable[i];
     if (current_node->value == "") {
         current_node->value = value;
-        return 1;
+        return 0;
     }
     else {
         Node *new_node = (Node*)calloc(1, sizeof(Node));
         
         new_node->value = value;
         new_node->next = nullptr;
-        int loops = 2;
+        int loops = 1;
         
         while(current_node->next != nullptr) {
             loops++;
