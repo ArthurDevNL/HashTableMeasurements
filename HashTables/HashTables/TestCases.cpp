@@ -38,26 +38,28 @@ uint64_t TestCase::hash(string str) {
 }
 
 void TestCase::fill_table() {
-    auto start = chrono::high_resolution_clock::now();
-    
     insertion_sum = 0;
     
     for (int i = 0; i < data_length; i++) {
+        auto start = chrono::high_resolution_clock::now();
+        
         const char* char_string = data[i].c_str();
         size_t str_len = strlen(char_string);
         uint64_t hash = hash_function(char_string, str_len);
+        
+        auto end = chrono::high_resolution_clock::now();
+        
+        chrono::duration<double> diff = end - start;
+        
+        insert_hash_times[i] = diff.count();
+        
         insertion_steps[i] = table->insert(data[i], hash);
         insertion_sum += insertion_steps[i];
         
         if (insertion_steps[i] > 1)
             collisions++;
+        
     }
-    
-    auto end = chrono::high_resolution_clock::now();
-    
-    chrono::duration<double> diff = end - start;
-    
-    insertion_time = diff.count();
 }
 
 void TestCase::lookup_table() {

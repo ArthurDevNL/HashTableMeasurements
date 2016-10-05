@@ -34,13 +34,17 @@ int main(int argc, const char * argv[]) {
                     ChainingHashTable c_table = ChainingHashTable(table_type, size, load_factor);
                     OpenAddressingHashTable oa_table = OpenAddressingHashTable(table_type, size, load_factor);
                     
+                    string function_names[4] = { "murmur", "fnv", "city", "jenkins" };
                     hash_function functions[4] = { murmur_hash::hash, fnv_hash::hash, city_hash::hash, jenkins_hash::hash };
                     for (int function_nr = 0; function_nr < 4; function_nr++) {
                         string *data = container.get_data(data_type, size);
+                        cout << "Hash function: " << function_names[function_nr] << endl;
+                        cout << "+----------------------------+" << endl;
+                        cout << "Chaining:";
                         TestCase(data, size, &c_table, functions[function_nr]).perform_test();
+                        cout << "Open addressing:";
                         TestCase(data, size, &oa_table, functions[function_nr]).perform_test();
                     }
-                    
                 }
             }
         }

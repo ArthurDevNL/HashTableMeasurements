@@ -24,10 +24,12 @@ public:
     unsigned int* insertion_steps;
     unsigned int insertion_sum;
     double insertion_time;
+    double* insert_hash_times;
     
     unsigned int* lookup_steps;
     unsigned int lookup_sum;
     double lookup_time;
+    double* lookup_hash_times;
     
     unsigned int collisions;
 private:
