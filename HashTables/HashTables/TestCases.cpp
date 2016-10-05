@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <fstream>
 #include "TestCases.hpp"
 #include "HashFunctions.hpp"
 
@@ -20,6 +21,8 @@ TestCase::TestCase(string* data, const size_t data_size, HashTable* table, uint6
     this->table = table;
     this->insertion_steps = new unsigned int[data_size];
     this->lookup_steps = new unsigned int[data_size];
+    this->insert_hash_times = new double[data_size];
+    this->lookup_hash_times = new double[data_size];
 }
 
 void TestCase::perform_test() {
@@ -29,6 +32,16 @@ void TestCase::perform_test() {
     cout << "Test results: \n";
     cout << "Insertion steps: " << lookup_sum << ", time: " << insertion_time << " s." << endl;
     cout << "Lookup steps: " << lookup_sum << ", time: " << lookup_time << " s." << endl;
+}
+
+void TestCase::write_results(string location, string hash_type) {
+    ofstream f;
+    f.open(location.c_str());
+    f << "id,table_type,hash_type,insertion_steps,lookup_steps,insertion_hash_times,lookup_hash_times" << endl;
+    for(int i = 0; i < data_length; i++) {
+        f << i << table->type << "," << hash_type << "," << insertion_steps[i] << "," << lookup_steps[i] << "," << insert_hash_times[i] << "," << lookup_hash_times[i] << endl;
+    }
+    f.close();
 }
 
 uint64_t TestCase::hash(string str) {
@@ -58,7 +71,6 @@ void TestCase::fill_table() {
         
         if (insertion_steps[i] > 1)
             collisions++;
-        
     }
 }
 

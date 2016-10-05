@@ -18,6 +18,7 @@ public:
     TestCase(std::string* data, const size_t data_size, HashTable* table, uint64_t (*hash_function)(const char* str, size_t len));
     
     void perform_test();
+    void write_results(std::string location, std::string hash_type);
     uint64_t hash(std::string str);
     
     // Test results

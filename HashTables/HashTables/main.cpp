@@ -31,6 +31,7 @@ int main(int argc, const char * argv[]) {
                 double max_loadfactor = table_type == HashTable::chaining ? 1.5 : 1.0;
                 for (double load_factor = 0.5; load_factor <= max_loadfactor; load_factor+=0.5) {
                     hash_function functions[4] = { murmur_hash::hash, fnv_hash::hash, city_hash::hash, jenkins_hash::hash };
+                    string function_names[4] = { "murmur", "fnv", "city", "jenkings" };
                     for (int function_nr = 0; function_nr < 4; function_nr++) {
                         HashTable *table;
                         if (table_type == HashTable::chaining) {
@@ -42,12 +43,12 @@ int main(int argc, const char * argv[]) {
                             table = &oaht;
                         }
                         string *data = container.get_data(data_type, size);
-                        cout << "Hash function: " << function_names[function_nr] << endl;
                         cout << "+----------------------------+" << endl;
-                        cout << "Chaining:";
-                        TestCase(data, size, &c_table, functions[function_nr]).perform_test();
-                        cout << "Open addressing:";
-                        TestCase(data, size, &oa_table, functions[function_nr]).perform_test();
+                        cout << "Hash function: " << function_names[function_nr] << endl;
+                        auto test = TestCase(data, size, table, functions[function_nr]);
+                        test.perform_test();
+                        string f_name = "data" + to_string(data_type) + "_size" + to_string(size_nr) + "_tablechaining_loadfactor" + to_string(load_factor) + "_hash" + function_names[function_nr] + ".csv";
+                        test.write_results(f_name, function_names[function_nr]);
                     }
                 }
             }
