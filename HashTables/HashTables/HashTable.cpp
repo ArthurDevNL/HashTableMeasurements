@@ -31,14 +31,14 @@ int OpenAddressingHashTable::insert(string value, uint64_t hash) {
     return collision_count;
 }
 
-int OpenAddressingHashTable::lookup(string value, uint64_t hash) {
+tuple<string, int> OpenAddressingHashTable::lookup(string value, uint64_t hash) {
     int i = (int)(hash % hashtable_size);
     int collision_count = 0;
-    while (hashtable[i] != "" && hashtable[i] != value) {
+    while (hashtable[i] != value) {
         collision_count++;
         i = (i + 1) % hashtable_size;
     }
-    return collision_count;
+    return make_tuple(value, collision_count);
 }
 
 
@@ -85,16 +85,15 @@ int ChainingHashTable::insert(string value, uint64_t hash) {
     }
 }
 
-int ChainingHashTable::lookup(string value, uint64_t hash) {
+tuple<string, int> ChainingHashTable::lookup(string value, uint64_t hash) {
     int i = (int)(hash % hashtable_size);
     int list_size = 0;
     
     Node current_node = hashtable[i];
     list_size++;
-    while (current_node.next != NULL && current_node.value != value) {
+    while (current_node.next != nullptr && current_node.value != value) {
         list_size++;
         current_node = *current_node.next;
     }
-    
-    return list_size;
+    return make_tuple(value, list_size);
 }

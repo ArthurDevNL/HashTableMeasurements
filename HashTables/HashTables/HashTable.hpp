@@ -27,7 +27,7 @@ public:
     int hashtable_size;
     
     virtual int insert(std::string value, uint64_t hash) = 0;
-    virtual int lookup(std::string value, uint64_t hash) = 0;
+    virtual std::tuple<std::string, int> lookup(std::string value, uint64_t hash) = 0;
 };
 
 
@@ -36,7 +36,7 @@ class OpenAddressingHashTable: public HashTable {
 public:
     std::string* hashtable;
     int insert(std::string value, uint64_t hash) override;
-    int lookup(std::string value, uint64_t hash) override;
+    std::tuple<std::string, int> lookup(std::string value, uint64_t hash) override;
     OpenAddressingHashTable(int _type, int _datasize, double _load_factor);
 };
 
@@ -53,7 +53,7 @@ class ChainingHashTable: public HashTable {
 public:
     Node* hashtable;
     int insert(std::string value, uint64_t hash) override;
-    int lookup(std::string value, uint64_t hash) override;
+    std::tuple<std::string, int> lookup(std::string value, uint64_t hash) override;
     ChainingHashTable(int _type, int _datasize, double _load_factor);
 };
 
