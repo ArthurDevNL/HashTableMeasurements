@@ -19,7 +19,7 @@ public:
     HashTable(int _type, int _datasize, double _load_factor);
     
     hashtable_type type;
-    int datasize;
+    int data_size;
     double load_factor;
     uint64_t hash(const char* str);
     
