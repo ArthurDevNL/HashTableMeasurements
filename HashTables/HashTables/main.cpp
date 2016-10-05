@@ -30,15 +30,19 @@ int main(int argc, const char * argv[]) {
             for (int table_type = HashTable::chaining; table_type <= HashTable::open_addressing; table_type++) {
                 double max_loadfactor = table_type == HashTable::chaining ? 1.5 : 1.0;
                 for (double load_factor = 0.5; load_factor <= max_loadfactor; load_factor+=0.5) {
-
-                    ChainingHashTable c_table = ChainingHashTable(table_type, size, load_factor);
-                    OpenAddressingHashTable oa_table = OpenAddressingHashTable(table_type, size, load_factor);
-                    
                     hash_function functions[4] = { murmur_hash::hash, fnv_hash::hash, city_hash::hash, jenkins_hash::hash };
                     for (int function_nr = 0; function_nr < 4; function_nr++) {
+                        HashTable *table;
+                        if (table_type == HashTable::chaining) {
+                            ChainingHashTable cht = ChainingHashTable(table_type, size, load_factor);
+                            table = &cht;
+                        }
+                        else {
+                            OpenAddressingHashTable oaht = OpenAddressingHashTable(table_type, size, load_factor);
+                            table = &oaht;
+                        }
                         string *data = container.get_data(data_type, size);
-                        TestCase(data, size, &c_table, functions[function_nr]).perform_test();
-                        TestCase(data, size, &oa_table, functions[function_nr]).perform_test();
+                        TestCase(data, size, table, functions[function_nr]).perform_test();
                     }
                     
                 }

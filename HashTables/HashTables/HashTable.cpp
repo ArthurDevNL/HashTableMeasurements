@@ -12,9 +12,9 @@ using namespace std;
 
 HashTable::HashTable(int _type, int _datasize, double _load_factor) {
     type = static_cast<hashtable_type>(_type);
-    datasize = _datasize;
+    data_size = _datasize;
     load_factor = _load_factor;
-    hashtable_size = (int)(datasize / load_factor);
+    hashtable_size = (int)(data_size / load_factor);
 }
 
 OpenAddressingHashTable::OpenAddressingHashTable(int _type, int _datasize, double _load_factor) : HashTable(_type, _datasize, _load_factor) {
