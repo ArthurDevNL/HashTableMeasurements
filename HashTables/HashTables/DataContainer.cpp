@@ -21,7 +21,7 @@ DataContainer::DataContainer(string build_path) {
 }
 
 string DataContainer::get_base_dir(string build_path) {
-    string base_dir = "reimagined-happiness";
+    string base_dir = "Hash";
     unsigned long base_dir_i = build_path.find(base_dir);
     build_path = build_path.substr(0, base_dir_i + base_dir.length());
     return build_path;

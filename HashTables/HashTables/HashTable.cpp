@@ -22,23 +22,23 @@ OpenAddressingHashTable::OpenAddressingHashTable(int _type, int _datasize, doubl
 }
 int OpenAddressingHashTable::insert(string value, uint64_t hash) {
     int i = (int)(hash % hashtable_size);
-    int collision_count = 0;
+    int iterations = 0;
     while (hashtable[i] != "") {
-        collision_count = 1;
+        iterations++;
         i = (i + 1) % hashtable_size;
     }
     hashtable[i] = value;
-    return collision_count;
+    return iterations;
 }
 
 int OpenAddressingHashTable::lookup(string value, uint64_t hash) {
     int i = (int)(hash % hashtable_size);
-    int collision_count = 0;
+    int iterations = 0;
     while (hashtable[i] != value) {
-        collision_count++;
+        iterations++;
         i = (i + 1) % hashtable_size;
     }
-    return collision_count;
+    return iterations;
 }
 
 
@@ -90,7 +90,7 @@ int ChainingHashTable::lookup(string value, uint64_t hash) {
     int list_size = 0;
     Node current_node = hashtable[i];
     while (current_node.next != nullptr && current_node.value != value) {
-        list_size = 1;
+        list_size++;
         current_node = *current_node.next;
     }
     return list_size;
